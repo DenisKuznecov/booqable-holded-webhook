@@ -26,7 +26,7 @@ const body = {
 
     const data = await response.json();
     console.log("Webhook created:", data);
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (error) {
     console.error("Webhook creation failed", error);
     // return res.status(500).json({ error: "Webhook creation failed" });
