@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   console.log('test');
 
   const headers = {
-    "Authorization": `Basic ${Buffer.from(process.env.BOOQABLE_API_KEY + ":").toString("base64")}`,
+    "Authorization": `${Buffer.from(process.env.BOOQABLE_API_KEY)}`,
     "Content-Type": "application/json",
   };
 
