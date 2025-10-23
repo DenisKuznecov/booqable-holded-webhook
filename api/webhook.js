@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         events: ["order.created", "order.updated"],
     },
   };
-
+  console.log('request body', body);
   console.log('headers', headers);
 
   try {
