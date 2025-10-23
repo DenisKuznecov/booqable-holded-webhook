@@ -7,11 +7,13 @@ export default async function handler(req, res) {
   };
 
   const body = {
-    type: "webhook_endpoints",
-    attributes: {
-        url: process.env.WEBHOOK_URL,
-        version: 4,
-        events: ["order.created", "order.updated"],
+    data: {
+        type: "webhook_endpoints",
+        attributes: {
+            url: process.env.WEBHOOK_URL,
+            version: 4,
+            events: ["order.created", "order.updated"],
+        },
     },
   };
   console.log('request body', body);
