@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     "Content-Type": "application/json",
   };
 
-  const body = {
+const body = {
     data: {
         type: "webhook_endpoints",
         attributes: {
@@ -16,8 +16,6 @@ export default async function handler(req, res) {
         },
     },
   };
-  console.log('request body', body);
-  console.log('headers', headers);
 
   try {
     const response = await fetch("https://echelon-cycling-hub-s-l.booqable.com/api/4/webhook_endpoints", {
@@ -30,24 +28,27 @@ export default async function handler(req, res) {
     console.log("Webhook created:", data);
     return res.status(200).json(data);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Webhook creation failed" });
+    console.error("Webhook creation failed", error);
+    // return res.status(500).json({ error: "Webhook creation failed" });
   }
 
     if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
-  console.log('rquest body', req.body);
-  const order = req.body.data;
-  console.log('order', order);
-  if (!order) {
-    return res.status(400).json({ message: "No order data" });
-  }
+        return res.status(405).json({ message: "Method not allowed" });
+    }
+    console.log('rquest body', req.body);
+    const order = req.body.data;
+    console.log('order', order);
+    if (!order) {
+        console.log("No order!");
+        return res.status(400).json({ message: "No order data" });
+    }
+
+    console.log('');
 
   // Filter: only custom or feedback-based orders
-  if (order.source !== "Feedback form" && !order.custom_fields?.custom_request) {
-    return res.status(200).json({ message: "Ignored non-priority order" });
-  }
+//   if (order.source !== "Feedback form" && !order.custom_fields?.custom_request) {
+//     return res.status(200).json({ message: "Ignored non-priority order" });
+//   }
 
 //   const uniqueId = `REQ-${order.id}-${Date.now()}`;
 //   const taskPayload = {
