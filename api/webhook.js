@@ -1,6 +1,35 @@
 export default async function handler(req, res) {
   console.log('test');
 
+  const headers = {
+    "Authorization": `Basic ${Buffer.from(process.env.BOOQABLE_API_KEY + ":").toString("base64")}`,
+    "Content-Type": "application/json",
+  };
+
+  const body = {
+    type: "webhook_endpoints",
+    attributes: {
+        url: process.env.WEBHOOK_URL,
+        version: 4,
+        events: ["order.created", "order.updated"],
+    },
+  };
+
+  try {
+    const response = await fetch("https://echelon-cycling-hub-s-l.booqable.com/api/4/webhook_endpoints", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+    console.log("Webhook created:", data);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Webhook creation failed" });
+  }
+
     if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
