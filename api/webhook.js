@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         attributes: {
             url: process.env.WEBHOOK_URL,
             version: 4,
-            events: ["order.created", "order.updated"],
+            events: ["order.updated", "order.saved_as_concept", "order.saved_as_draft"],
         },
     },
   };
