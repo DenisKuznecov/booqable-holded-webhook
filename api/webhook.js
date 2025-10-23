@@ -15,6 +15,8 @@ export default async function handler(req, res) {
     },
   };
 
+  console.log('headers', headers);
+
   try {
     const response = await fetch("https://echelon-cycling-hub-s-l.booqable.com/api/4/webhook_endpoints", {
       method: "POST",
